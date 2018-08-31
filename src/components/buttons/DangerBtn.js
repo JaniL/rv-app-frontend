@@ -1,16 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 import './styles/Button.css';
 import './styles/DangerBtn.css';
 import Loader from './../loaders/Loader';
 import PropTypes from 'prop-types';
 
 const DangerBtn = ({ onClick, children, fill, hover, loader, ...props }) => {
-    let className = 'btn';
-    fill ? (className += ' danger-fill') : (className += ' danger');
-    hover &&
-        (fill
-            ? (className += ' danger-fill-hover')
-            : (className += ' danger-hover'));
+    const className = classNames(
+        'btn',
+        fill ? 'danger-fill' : 'danger',
+        {
+            'danger-fill-hover': hover && fill,
+            'danger-hover': hover && !fill
+        }
+    );
     return (
         <button {...props} onClick={onClick} className={className}>
             {!loader ? (

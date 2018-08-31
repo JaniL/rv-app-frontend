@@ -1,17 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 import './styles/Button.css';
 import './styles/SuccessBtn.css';
 import Loader from './../loaders/Loader';
 import PropTypes from 'prop-types';
 
 const SuccessBtn = ({ onClick, children, fill, hover, loader, ...props }) => {
-    let className = 'btn';
-    fill ? (className += ' success-fill') : (className += ' success');
-    hover &&
-        (fill
-            ? (className += ' success-fill-hover')
-            : (className += ' success-hover'));
-
+    const className = classNames(
+        'btn',
+        fill ? 'success-fill' : 'success',
+        {
+            'success-fill-hover': hover && fill,
+            'success-hover': hover && !fill
+        }
+    );
     return (
         <button {...props} onClick={onClick} className={className}>
             {!loader ? (

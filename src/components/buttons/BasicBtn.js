@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import './styles/Button.css';
 import './styles/BasicBtn.css';
 import Loader from './../loaders/Loader';
@@ -10,13 +11,12 @@ import PropTypes from 'prop-types';
  * Suitable for UI actions, that do not change the current page or execute a critical action, such as submitting a form.
  */
 const BasicBtn = ({ onClick, children, fill, hover, loader, ...props }) => {
-    let className = 'btn';
-    fill ? (className += ' basic-fill') : (className += ' basic');
-    hover &&
-        (fill
-            ? (className += ' basic-fill-hover')
-            : (className += ' basic-hover'));
-
+    const className = classNames('btn', {
+        'basic-fill': fill,
+        'basic': !fill,
+        'basic-fill-hover': hover && fill,
+        'basic-hover': hover && !fill
+    });
     return (
         <button {...props} onClick={onClick} className={className}>
             {!loader ? (

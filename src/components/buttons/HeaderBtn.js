@@ -1,17 +1,19 @@
 import React from 'react';
+import classNames from 'classnames';
 import './styles/Button.css';
 import './styles/HeaderBtn.css';
 import Loader from './../loaders/Loader';
 import PropTypes from 'prop-types';
 
 const HeaderBtn = ({ onClick, children, fill, hover, loader, ...props }) => {
-    let className = 'btn';
-    fill ? (className += ' headerbtn-fill') : (className += ' headerbtn');
-    hover &&
-        (fill
-            ? (className += ' headerbtn-fill-hover')
-            : (className += ' headerbtn-hover'));
-
+    const className = classNames(
+        'btn',
+        fill ? 'headerbtn-fill' : 'headerbtn',
+        {
+            'headerbtn-fill-hover': hover && fill,
+            'headerbtn-hover': hover && !fill
+        }
+    );
     return (
         <button {...props} onClick={onClick} className={className}>
             {!loader ? (
